@@ -1,0 +1,21 @@
+<div class='contact_form'>
+    <div class='input-group'>
+        <label>Title</label>
+        <input type="text" class="form-control" ng-model="snippet.title">
+    </div>
+
+    <div class='input-group'>
+        <label>Language</label>
+        <input type="text" class="form-control" ng-model="snippet.language">
+    </div>
+
+    <div class='input-group'>
+        <label>Code</label>
+        <textarea rows="4" cols="50" class="form-control" ng-model="snippet.code"></textarea>
+    </div>
+
+    <br>
+
+    <button ng-click='saveSnippet()' class='btn btn-primary' type='submit'>Save Snippet</button>
+    <a href="/" class='btn btn-primary'>Cancel</a>
+</div>

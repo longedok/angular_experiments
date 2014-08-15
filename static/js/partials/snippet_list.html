@@ -1,0 +1,23 @@
+Filter: <input ng-model='query'> {{orderProp}}
+
+<table class='table' >
+    <tr>
+        <th><a ng-click="sort('title')">Title</a></th>
+        <th>Owner</th>
+        <th><a ng-click="sort('language')">Language</a></th>
+        <th><a ng-click="sort('created')">Created</a></th>
+        <th>Operations</th>
+    </tr>
+    <tr ng-repeat='snippet in snippets | filter: query | orderBy: orderProp'>
+        <td>{{snippet.title || "untitled"}}</td>
+        <td>{{snippet.owner}}</td>
+        <td>{{snippet.language}}</td>
+        <td>{{snippet.created | date}}</td>
+        <td>
+            <a ng-click='deleteSnippet(snippet.id)'><i class='glyphicon glyphicon-remove'></i></a>
+            <a ng-href='#/edit/{{snippet.id}}'><i class='glyphicon glyphicon-pencil'></i></a>
+        </td>
+    </tr>
+</table>
+
+<a href='#/new' class='btn btn-primary' type='submit'>Add Snippet</a>
