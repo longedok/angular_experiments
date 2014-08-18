@@ -1,4 +1,9 @@
-var snippetsControllers = angular.module('snippetsControllers', ['ngRoute']);
+var snippetsControllers = angular.module('snippetsControllers', ['ngRoute', 'ngCookies']);
+
+snippetsControllers.run(['$http', '$cookies', function($http, $cookies) {
+        $http.defaults.headers.common['X-CSRFToken'] = $cookies['csrftoken'];
+        //$http.defaults.headers.put['X-CSRFToken'] = $cookies['csrftoken'];
+    }]);
 
 snippetsControllers.controller('SnippetListController', ['$scope', '$routeParams', 'Snippet', 
     function($scope, $routeParams, Snippet) {
@@ -42,6 +47,7 @@ snippetsControllers.controller('SnippetListController', ['$scope', '$routeParams
                 $scope.snippets.forEach(function(snippet, index) {
                     if (_snippetId == snippet.id) {
                         $scope.snippets.splice(index, 1);
+                        requestPage($scope.page);
                     }
                 });
             })
@@ -65,6 +71,24 @@ snippetsControllers.controller('SnippetCreateController', ['$scope', '$routePara
         $scope.saveSnippet = function() {
             Snippet.save($scope.snippet, function(data) {
                 $location.path('/');
+            });
+        }
+    }]);
+
+
+var usersControllers = angular.module('usersControllers', ['ngCookies']);
+
+usersControllers.run(['$http', '$cookies', function($http, $cookies) {
+        $http.defaults.headers.post['X-CSRFToken'] = $cookies['csrftoken']; 
+    }]);
+
+usersControllers.controller('UserLoginController', ['$scope', '$location', 'User',
+    function($scope, $location, User) {
+        $scope.login = function() {
+            User.login($scope.input, function(data) {
+                $location.path('/');
+            }, function(data) {
+                console.log('fail');
             });
         }
     }]);

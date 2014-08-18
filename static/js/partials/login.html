@@ -1,0 +1,21 @@
+<form class="login pull-left">
+    <h3>Log In</h3>
+
+    <div ng-repeat="error in errors.non_field_errors" class="alert alert-danger fade in">
+        {{ error }}
+    </div>
+    <div class="form-group" ng-class="{'has-error': errors.username}">
+        <label>Username</label>
+        <input type="text" name="username" class="form-control" ng-model="input.username" />
+        <span ng-repeat="error in errors.username" class="help-block">{{ error }}</span>
+    </div>
+    <div class="form-group" ng-class="{'has-error': errors.password}">
+        <label>Password</label>
+        <input type="password" name="password" class="form-control" ng-model="input.password"/>
+        <span ng-repeat="error in errors.password" class="help-block">{{ error }}</span>
+    </div>
+    <div class="checkbox">
+        <label><input type="checkbox" name="" id="rules" ng-model="input.remember" />Remember me</label>
+    </div>
+    <button class="btn btn-danger" ng-click="login()">Log In</button>
+</form>

@@ -2,7 +2,9 @@ var snippetsApp = angular.module('snippetsApp', [
     'ngRoute',
 
     'snippetsControllers',
-    'snippetsServices' 
+    'snippetsServices',
+    'usersControllers',
+    'usersServices' 
 ]);
 
 snippetsApp.config(['$routeProvider', 
@@ -19,6 +21,10 @@ snippetsApp.config(['$routeProvider',
             .when('/edit/:snippetId', {
                 templateUrl: 'static/js/partials/snippet_detail.html',
                 controller: 'SnippetDetailController'               
+            })
+            .when('/login', {
+                templateUrl: 'static/js/partials/login.html',
+                controller: 'UserLoginController'
             })
             .otherwise({
                 redirectTo: '/snippets'

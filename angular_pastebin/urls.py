@@ -11,5 +11,6 @@ urlpatterns = patterns('',
 
     url(r'^$', TemplateView.as_view(template_name='home.html'), name='home'),
     url(r'^api/', include('snippets.urls')),
+    url(r'^users/', include('users.urls')),
     url(r'^admin/', include(admin.site.urls)),
 )

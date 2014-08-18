@@ -6,3 +6,17 @@ snippetsServices.factory('Snippet', ['$resource', function ($resource) {
         query: {method: 'GET', params:{snippetId:''}, isArray: false}
     });
 }]);
+
+
+var userServices = angular.module('usersServices', ['ngResource']);
+
+userServices.config(['$resourceProvider', function ($resourceProvider) {
+    // Don't strip trailing slashes from calculated URLs
+    $resourceProvider.defaults.stripTrailingSlashes = false;
+}]);
+
+userServices.factory('User', ['$resource', function($resource) {
+        return $resource('users/login/', null, {
+            login: {method: 'POST'}
+        });
+    }]);

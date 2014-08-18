@@ -1,4 +1,4 @@
-<div id="filter-input">Search: <input ng-model='query'></div>
+<div id="filter-input">Filter: <input ng-model='query'></div>
 
 <table class='table' >
     <tr>
@@ -20,10 +20,13 @@
     </tr>
 </table>
 
-<div>{{'Page ' + page + ' out of ' + pageCount}}</div>
+<div>
+    <div id="page-counter" ng-show="pageCount > 0">{{'Page ' + page + ' out of ' + pageCount}}</div>
+    <a href='#/snippets?page={{prevPage}}' ng-show='prevPage' type='submit'>&lt; Previous</a>
+    <a href='#/snippets?page={{nextPage}}' ng-show='nextPage' type='submit'>Next &gt;</a>
+</div>
 
 <a href='#/new' class='btn btn-primary' type='submit'>Add Snippet</a>
-<a href='#/snippets?page={{prevPage}}' ng-show='prevPage' class='btn btn-primary' type='submit'>Previous</a>
-<a href='#/snippets?page={{nextPage}}' ng-show='nextPage' class='btn btn-primary' type='submit'>Next</a>
+
 <!-- <a ng-click='previousPage()' class='btn btn-primary' type='submit'>Previous</button>
 <a ng-click='nextPage()' class='btn btn-primary' type='submit'>Next</button> -->
