@@ -13,7 +13,7 @@
         <td>{{snippet.owner}}</td>
         <td>{{snippet.language}}</td>
         <td>{{snippet.created | date:'short'}}</td>
-        <td>
+        <td class='col-centered'>
             <a ng-click='deleteSnippet(snippet.id)'><i class='glyphicon glyphicon-remove'></i></a>
             <a ng-href='#/edit/{{snippet.id}}'><i class='glyphicon glyphicon-pencil'></i></a>
         </td>
@@ -23,5 +23,7 @@
 <div>{{'Page ' + page + ' out of ' + pageCount}}</div>
 
 <a href='#/new' class='btn btn-primary' type='submit'>Add Snippet</a>
-<button ng-click='previousPage()' class='btn btn-primary' type='submit'>Previous</button>
-<button ng-click='nextPage()' class='btn btn-primary' type='submit'>Next</button>
+<a href='#/snippets?page={{prevPage}}' ng-show='prevPage' class='btn btn-primary' type='submit'>Previous</a>
+<a href='#/snippets?page={{nextPage}}' ng-show='nextPage' class='btn btn-primary' type='submit'>Next</a>
+<!-- <a ng-click='previousPage()' class='btn btn-primary' type='submit'>Previous</button>
+<a ng-click='nextPage()' class='btn btn-primary' type='submit'>Next</button> -->

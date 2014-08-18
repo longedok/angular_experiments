@@ -7,9 +7,9 @@ from snippets.serializers import SnippetSerializer
 
 
 class SnippetViewSet(viewsets.ModelViewSet):
-	"""
-	This viewset automatically provides `list`, `create`, `retrieve`,
-	`update` and `destroy` actions.
-	"""
-	queryset = Snippet.objects.all().order_by('-created')
-	serializer_class = SnippetSerializer
+    """
+    This viewset automatically provides `list`, `create`, `retrieve`,
+    `update` and `destroy` actions.
+    """
+    queryset = Snippet.objects.all().order_by('-created')
+    serializer_class = SnippetSerializer

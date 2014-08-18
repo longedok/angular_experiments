@@ -1,20 +1,29 @@
 var snippetsControllers = angular.module('snippetsControllers', ['ngRoute']);
 
-snippetsControllers.controller('SnippetListController', ['$scope', 'Snippet', 
-    function($scope, Snippet) {
+snippetsControllers.controller('SnippetListController', ['$scope', '$routeParams', 'Snippet', 
+    function($scope, $routeParams, Snippet) {
         // put all the data receiveing into a signle function to simplify pagination
         function requestPage(page) {
             $scope.page = page;
             Snippet.query({page: $scope.page}, function(data) {
                 $scope.data = data;
+                if ($scope.data.next) {
+                    $scope.nextPage = $scope.page + 1;
+                }
+                console.log($scope.nextPage);
+                if ($scope.data.previous) {
+                    $scope.prevPage = $scope.page - 1;
+                }
                 console.log(data);
                 $scope.snippets = data.results;
                 $scope.pageCount = Math.ceil(data.count / 5);
             });
         }
 
-        // receive server data initially (first page)
-        requestPage(1);
+        if ($routeParams.page)
+            requestPage(parseInt($routeParams.page) || 1);
+        else
+            requestPage(1); // receive server data initially (first page)
 
         $scope.orderProp = '-created';
 
@@ -36,18 +45,6 @@ snippetsControllers.controller('SnippetListController', ['$scope', 'Snippet',
                     }
                 });
             })
-        }
-
-        $scope.nextPage = function() {
-            if ($scope.data.next) {
-                requestPage($scope.page + 1);
-            }
-        }
-
-        $scope.previousPage = function() {
-            if ($scope.data.previous) {
-                requestPage($scope.page - 1);
-            }
         }
     }]);
 
