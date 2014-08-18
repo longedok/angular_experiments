@@ -1,4 +1,4 @@
-Filter: <input ng-model='query'> {{orderProp}}
+<div id="filter-input">Search: <input ng-model='query'></div>
 
 <table class='table' >
     <tr>
@@ -12,7 +12,7 @@ Filter: <input ng-model='query'> {{orderProp}}
         <td>{{snippet.title || "untitled"}}</td>
         <td>{{snippet.owner}}</td>
         <td>{{snippet.language}}</td>
-        <td>{{snippet.created | date}}</td>
+        <td>{{snippet.created | date:'short'}}</td>
         <td>
             <a ng-click='deleteSnippet(snippet.id)'><i class='glyphicon glyphicon-remove'></i></a>
             <a ng-href='#/edit/{{snippet.id}}'><i class='glyphicon glyphicon-pencil'></i></a>
@@ -20,4 +20,8 @@ Filter: <input ng-model='query'> {{orderProp}}
     </tr>
 </table>
 
+<div>{{'Page ' + page + ' out of ' + pageCount}}</div>
+
 <a href='#/new' class='btn btn-primary' type='submit'>Add Snippet</a>
+<button ng-click='previousPage()' class='btn btn-primary' type='submit'>Previous</button>
+<button ng-click='nextPage()' class='btn btn-primary' type='submit'>Next</button>

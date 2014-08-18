@@ -2,32 +2,52 @@ var snippetsControllers = angular.module('snippetsControllers', ['ngRoute']);
 
 snippetsControllers.controller('SnippetListController', ['$scope', 'Snippet', 
     function($scope, Snippet) {
-        $scope.snippets = Snippet.query();
+        // put all the data receiveing into a signle function to simplify pagination
+        function requestPage(page) {
+            $scope.page = page;
+            Snippet.query({page: $scope.page}, function(data) {
+                $scope.data = data;
+                console.log(data);
+                $scope.snippets = data.results;
+                $scope.pageCount = Math.ceil(data.count / 5);
+            });
+        }
+
+        // receive server data initially (first page)
+        requestPage(1);
+
+        $scope.orderProp = '-created';
 
         $scope.sort = function(orderProp) {
-            if (!$scope.orderProp) {
-                $scope.orderProp = orderProp;
+            // reverse the sorting order when user clicks on a column title again 
+            if (orderProp == $scope.orderProp) {
+                $scope.orderProp = '-' + orderProp;
             } else {
-                if ($scope.orderProp[0] == '-') {
-                    $scope.orderProp.substr(1, orderProp.length);
-                }
-
-                if (orderProp == $scope.orderProp) {
-                    $scope.orderProp = '-' + orderProp;
-                } else {
-                    $scope.orderProp = orderProp;
-                }
+                $scope.orderProp = orderProp;
             }
         }
 
         $scope.deleteSnippet = function(_snippetId) {
             Snippet.delete({snippetId: _snippetId}, function () {
+                // remove snippet from the table after a successfull xhr delete request 
                 $scope.snippets.forEach(function(snippet, index) {
                     if (_snippetId == snippet.id) {
                         $scope.snippets.splice(index, 1);
                     }
                 });
             })
+        }
+
+        $scope.nextPage = function() {
+            if ($scope.data.next) {
+                requestPage($scope.page + 1);
+            }
+        }
+
+        $scope.previousPage = function() {
+            if ($scope.data.previous) {
+                requestPage($scope.page - 1);
+            }
         }
     }]);
 

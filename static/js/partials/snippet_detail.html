@@ -1,15 +1,17 @@
-<div class='contact_form'>
-    <div class='input-group'>
+<form id='contact-form' name='contactForm'>
+    <div class='control-group' ng-class="{error: contactForm.title.$invalid && !contactForm.title.$pristine}">
         <label>Title</label>
-        <input type="text" class="form-control" ng-model="snippet.title">
+        <input type="text" class="form-control" name="title" 
+               ng-model="snippet.title" maxlength="100" required>
+        <span ng-show="contactForm.title.$error.required && !contactForm.title.$pristine" class="help-inline">This field is required</span>
     </div>
 
-    <div class='input-group'>
+    <div class='control-group'>
         <label>Language</label>
         <input type="text" class="form-control" ng-model="snippet.language">
     </div>
 
-    <div class='input-group'>
+    <div class='control-group'>
         <label>Code</label>
         <textarea rows="4" cols="50" class="form-control" ng-model="snippet.code"></textarea>
     </div>
@@ -18,4 +20,4 @@
 
     <button ng-click='saveSnippet()' class='btn btn-primary' type='submit'>Save Snippet</button>
     <a href="/" class='btn btn-primary'>Cancel</a>
-</div>
+</form>

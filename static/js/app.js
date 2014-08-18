@@ -8,7 +8,7 @@ var snippetsApp = angular.module('snippetsApp', [
 snippetsApp.config(['$routeProvider', 
     function($routeProvider) {
         $routeProvider
-            .when('/', {
+            .when('/snippets', {
                 templateUrl: 'static/js/partials/snippet_list.html',
                 controller: 'SnippetListController'
             })
@@ -21,6 +21,6 @@ snippetsApp.config(['$routeProvider',
                 controller: 'SnippetDetailController'               
             })
             .otherwise({
-                redirectTo: '/'
+                redirectTo: '/snippets'
             });
         }]);
